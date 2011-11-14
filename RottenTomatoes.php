@@ -1,31 +1,31 @@
 <?php
-/**
- * Copyright (c) 2011 Richard Hoppes.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is furnished to do
- * so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- * */
+	/**
+	* Copyright (c) 2011 Richard Hoppes.
+	*
+	* Permission is hereby granted, free of charge, to any person obtaining a copy of
+	* this software and associated documentation files (the "Software"), to deal in
+	* the Software without restriction, including without limitation the rights to
+	* use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+	* of the Software, and to permit persons to whom the Software is furnished to do
+	* so, subject to the following conditions:
+	*
+	* The above copyright notice and this permission notice shall be included in all
+	* copies or substantial portions of the Software.
+	*
+	* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+	* SOFTWARE.
+	* */
 
-/**
- * Rotten Tomatoes API
- */
-class RottenTomatoes
-{
+	/**
+	* Rotten Tomatoes API
+	*/
+	class RottenTomatoes
+	{
 	/**
 	 * API Urls
 	 */
@@ -88,20 +88,20 @@ class RottenTomatoes
 	 * @param int $page current page
 	 * @return array results
 	 */
-    public function movieSearch($query, $pageLimit = 20, $page = 0) {
-	    $params = array();
-	    $params['q'] = $query;
-	    if ($pageLimit)
+	public function movieSearch($query, $pageLimit = 20, $page = 0) {
+		$params = array();
+		$params['q'] = $query;
+		if ($pageLimit)
 			$params['page_limit'] .= $pageLimit;
 		if ($page)
 			$params['page'] = $page;
 
 		$result = $this->getResource(self::ROTTEN_TOMATOES_API_MOVIE_SEARCH, $params);
-	    if(!isset($result['movies']) && !empty($result['movies']))
-		    throw new Exception("No results");
+		if(!isset($result['movies']) && !empty($result['movies']))
+			throw new Exception("No results");
 
-	    return $result;
-    }
+		return $result;
+	}
 
 	/**
 	 * Get movie reviews
@@ -113,20 +113,20 @@ class RottenTomatoes
 	 * @return array results
 	 */
 	public function getMovieReviews($id, $reviewType = self::REVIEW_TYPE_ALL, $pageLimit = 20, $page = 0) {
-	    $url = sprintf(self::ROTTEN_TOMATOES_API_MOVIE_REVIEWS, $id);
+		$url = sprintf(self::ROTTEN_TOMATOES_API_MOVIE_REVIEWS, $id);
 		$params = array();
 		$params['review_type'] = $reviewType;
-	    if ($pageLimit)
+		if ($pageLimit)
 			$params['page_limit'] .= $pageLimit;
 		if ($page)
 			$params['page'] = $page;
 
 		$result = $this->getResource($url, $params);
 		if(!isset($result['reviews']) && !empty($result['reviews']))
-		    throw new Exception("No results");
+			throw new Exception("No results");
 
-	    return $result;
-    }
+		return $result;
+	}
 
 	/**
 	 * Get movie cast
@@ -138,8 +138,8 @@ class RottenTomatoes
 		$url = sprintf(self::ROTTEN_TOMATOES_API_MOVIE_CAST, $id);
 
 		$result = $this->getResource($url);
-	    if(!isset($result['cast']) || empty($result['cast']))
-		    throw new Exception("No results");
+		if(!isset($result['cast']) || empty($result['cast']))
+			throw new Exception("No results");
 
 		return $result['cast'];
 	}
@@ -154,8 +154,8 @@ class RottenTomatoes
 		$url = sprintf(self::ROTTEN_TOMATOES_API_MOVIE_INFO, $id);
 
 		$result = $this->getResource($url);
-	    if(!isset($result['id']))
-		    throw new Exception("No results");
+		if(!isset($result['id']))
+			throw new Exception("No results");
 
 		return $result;
 	}
@@ -169,20 +169,20 @@ class RottenTomatoes
 	 */
 	public function getNewDvdReleases($pageLimit = 20, $page = 0) {
 		$params = array();
-	    if ($pageLimit)
+		if ($pageLimit)
 			$params['page_limit'] .= $pageLimit;
 		if ($page)
 			$params['page'] = $page;
 
 		$result = $this->getResource(self::ROTTEN_TOMATOES_API_NEW_RELEASE_DVDS, $params);
-	    if(!isset($result['movies']) && !empty($result['movies']))
-		    throw new Exception("No results");
+		if(!isset($result['movies']) && !empty($result['movies']))
+			throw new Exception("No results");
 
 		return $result;
 	}
 
 	/**
-	 * Get movies that are coming soon 
+	 * Get movies that are coming soon
 	 * @throws Exception
 	 * @param int $pageLimit results per page
 	 * @param int $page current page
@@ -190,14 +190,14 @@ class RottenTomatoes
 	 */
 	public function getUpcomingMovies($pageLimit = 20, $page = 0) {
 		$params = array();
-	    if ($pageLimit)
+		if ($pageLimit)
 			$params['page_limit'] .= $pageLimit;
 		if ($page)
 			$params['page'] = $page;
 
 		$result = $this->getResource(self::ROTTEN_TOMATOES_API_UPCOMING_MOVIES, $params);
-	    if(!isset($result['movies']) && !empty($result['movies']))
-		    throw new Exception("No results");
+		if(!isset($result['movies']) && !empty($result['movies']))
+			throw new Exception("No results");
 
 		return $result;
 	}
@@ -211,7 +211,7 @@ class RottenTomatoes
 	 */
 	public function getMoviesInTheaters($pageLimit = 5, $page = 0) {
 		$params = array();
-	    if ($pageLimit)
+		if ($pageLimit)
 			$params['page_limit'] .= $pageLimit;
 		if ($page)
 			$params['page'] = $page;
@@ -231,12 +231,12 @@ class RottenTomatoes
 	 */
 	public function getOpeningMovies($pageLimit = 20) {
 		$params = array();
-	    if ($pageLimit)
+		if ($pageLimit)
 			$params['page_limit'] .= $pageLimit;
 
 		$result = $this->getResource(self::ROTTEN_TOMATOES_API_OPENING_MOVIES, $params);
-	    if(!isset($result['movies']) && !empty($result['movies']))
-		    throw new Exception("No results");
+		if(!isset($result['movies']) && !empty($result['movies']))
+			throw new Exception("No results");
 
 		return $result;
 	}
@@ -244,17 +244,17 @@ class RottenTomatoes
 	/**
 	 * Get top box office results
 	 * @throws Exception
- 	 * @param int $pageLimit number of results
+	 * @param int $pageLimit number of results
 	 * @return array results
 	 */
 	public function getMoviesBoxOffice($pageLimit = 20) {
 		$params = array();
-	    if ($pageLimit)
+		if ($pageLimit)
 			$params['page_limit'] .= $pageLimit;
 
 		$result = $this->getResource(self::ROTTEN_TOMATOES_API_BOX_OFFICE, $params);
-	    if(!isset($result['movies']) && !empty($result['movies']))
-		    throw new Exception("No results");
+		if(!isset($result['movies']) && !empty($result['movies']))
+			throw new Exception("No results");
 
 		return $result;
 	}
@@ -262,17 +262,17 @@ class RottenTomatoes
 	/**
 	 * Get top DVD rentals
 	 * @throws Exception
- 	 * @param int $pageLimit number of results
+	 * @param int $pageLimit number of results
 	 * @return array results
 	 */
 	public function getDvdTopRentals($pageLimit = 20) {
 		$params = array();
-	    if ($pageLimit)
+		if ($pageLimit)
 			$params['page_limit'] .= $pageLimit;
 
 		$result = $this->getResource(self::ROTTEN_TOMATOES_API_DVD_TOP_RENTALS, $params);
-	    if(!isset($result['movies']) && !empty($result['movies']))
-		    throw new Exception("No results");
+		if(!isset($result['movies']) && !empty($result['movies']))
+			throw new Exception("No results");
 
 		return $result;
 	}
@@ -282,39 +282,39 @@ class RottenTomatoes
 	 * @throws Exception
 	 * @return array results
 	 */
-    public function getMovieListsDirectory() {
+	public function getMovieListsDirectory() {
 		$result = $this->getResource(self::ROTTEN_TOMATOES_API_DVD_LISTS_DIRECTORY);
-	    if(!isset($result['links']) && !empty($result['links']))
-		    throw new Exception("No results");
+		if(!isset($result['links']) && !empty($result['links']))
+			throw new Exception("No results");
 
-	    return $result;
-    }
+		return $result;
+	}
 
 	/**
 	 * Get list Urls
 	 * @throws Exception
 	 * @return array results
 	 */
-    public function getListsDirectory() {
+	public function getListsDirectory() {
 		$result = $this->getResource(self::ROTTEN_TOMATOES_API_LISTS_DIRECTORY);
-	    if(!isset($result['links']) && !empty($result['links']))
-		    throw new Exception("No results");
+		if(!isset($result['links']) && !empty($result['links']))
+			throw new Exception("No results");
 
-	    return $result;
-    }
+		return $result;
+	}
 
 	/**
 	 * Get DVD API Urls
 	 * @throws Exception
 	 * @return array results
 	 */
-    public function getDvdListsDirectory() {
+	public function getDvdListsDirectory() {
 		$result = $this->getResource(self::ROTTEN_TOMATOES_API_DVD_LISTS_DIRECTORY);
-	    if(!isset($result['links']) && !empty($result['links']))
-		    throw new Exception("No results");
+		if(!isset($result['links']) && !empty($result['links']))
+			throw new Exception("No results");
 
-	    return $result;
-    }
+		return $result;
+	}
 
 	/**
 	 * Get resource
