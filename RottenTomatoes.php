@@ -83,7 +83,7 @@ class RottenTomatoes
 	/**
 	 * Movie search
 	 * @throws Exception
-	 * @param $query search term
+	 * @param string $query search term
 	 * @param int $pageLimit results per page
 	 * @param int $page current page
 	 * @return array results
@@ -106,7 +106,7 @@ class RottenTomatoes
 	/**
 	 * Get movie reviews
 	 * @throws Exception
-	 * @param $id rotten tomatoes id
+	 * @param int $id rotten tomatoes id
 	 * @param string $reviewType review type
 	 * @param int $pageLimit results per page
 	 * @param int $page current page
@@ -131,7 +131,7 @@ class RottenTomatoes
 	/**
 	 * Get movie cast
 	 * @throws Exception
-	 * @param $id rotten tomatoes id
+	 * @param int $id rotten tomatoes id
 	 * @return
 	 */
 	public function getMovieCast($id) {
@@ -147,7 +147,7 @@ class RottenTomatoes
 	/**
 	 * Get movie info
 	 * @throws Exception
-	 * @param $id rotten tomatoes id
+	 * @param int $id rotten tomatoes id
 	 * @return array
 	 */
 	public function getMovieInfo($id) {
@@ -318,7 +318,7 @@ class RottenTomatoes
 
 	/**
 	 * Get resource
-	 * @param $url
+	 * @param string $url
 	 * @param array $params parameters (key/value pairs) for query string
 	 * @return array decoded json response
 	 */
