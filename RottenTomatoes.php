@@ -347,7 +347,7 @@ class RottenTomatoes
 	 * @param string $url url for request
 	 * @return string|boolean result
 	 */
-	private function httpRequest($url) {
+	protected function httpRequest($url) {
 		$http = array();
 		$http['method'] = 'GET';
 		$http['timeout'] = $this->timeoutSeconds;
