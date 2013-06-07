@@ -348,6 +348,23 @@ class RottenTomatoes
 	 * @return string|boolean result
 	 */
 	protected function httpRequest($url) {
+		//Test for allow_url_fopen to be enabled.
+		//Many hosts disable this for security
+		if(function_exists('curl_init')){
+			return $this->httpRequestCurl($url);
+		}elseif(ini_get('allow_url_fopen')){
+			return $this->httpRequestFopen($url);
+		}else{
+			return false;
+		}
+	}
+	
+	/**
+	 * Perform HTTP Request with fopen
+	 * @param string $url url for request
+	 * @return string|boolean result
+	 */
+	 protected function httpRequestFopen($url){
 		$http = array();
 		$http['method'] = 'GET';
 		$http['timeout'] = $this->timeoutSeconds;
@@ -356,8 +373,36 @@ class RottenTomatoes
 
 		$result = false;
 		if ($response)
-			$result = stream_get_contents($response);
+			$result = $response;
+		return $result;
+	}
+	
+	/**
+	 * Perform HTTP Request with curl
+	 * @param string $url url for request
+	 * @return string|boolean result
+	 */
+	 protected function httpRequestCurl($url){
+	 	// create curl resource 
+		$ch = curl_init(); 
+		
+		// set url 
+		curl_setopt($ch, CURLOPT_URL, $url); 
+		
+		//return the transfer as a string 
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 
+		//set timeout
+		curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeoutSeconds);
+		// $output contains the output string 
+		$response = curl_exec($ch); 
+		
+		// close curl resource to free up system resources 
+		curl_close($ch); 
+
+		$result = false;
+		if ($response)
+			$result = $response;
 		return $result;
 	}
 }
