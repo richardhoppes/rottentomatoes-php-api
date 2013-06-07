@@ -350,10 +350,10 @@ class RottenTomatoes
 	protected function httpRequest($url) {
 		//Test for allow_url_fopen to be enabled.
 		//Many hosts disable this for security
-		if(ini_get('allow_url_fopen')){
-			return $this->httpRequestFopen($url);
-		}elseif(function_exists('curl_init')){
+		if(function_exists('curl_init')){
 			return $this->httpRequestCurl($url);
+		}elseif(ini_get('allow_url_fopen')){
+			return $this->httpRequestFopen($url);
 		}else{
 			return false;
 		}
@@ -373,8 +373,7 @@ class RottenTomatoes
 
 		$result = false;
 		if ($response)
-			$result = stream_get_contents($response);
-
+			$result = $response;
 		return $result;
 	}
 	
@@ -404,7 +403,6 @@ class RottenTomatoes
 		$result = false;
 		if ($response)
 			$result = $response;
-
 		return $result;
 	}
 }
