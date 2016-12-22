@@ -1,4 +1,4 @@
-Rotten Tomatoes API Wrapper for PHP
+Rotten Tomatoes API Library for PHP
 ======================
 
 PHP library for the Rotten Tomatoes API 
